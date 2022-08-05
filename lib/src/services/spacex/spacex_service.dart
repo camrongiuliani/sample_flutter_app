@@ -5,8 +5,12 @@ import 'package:demo/src/services/spacex/data/documents.dart';
 import 'package:demo/src/services/spacex/models/launch.dart';
 import 'package:graphql/client.dart';
 
+
+/// Service for handling calls to the SpaceX Graphql API.
 class SpaceXService {
 
+  // This class maintains a singleton instance.
+  // An alternative method would be to use a service locator, such as get_it.
   static SpaceXService? _instance;
 
   late final HttpLink _httpLink;
@@ -31,6 +35,9 @@ class SpaceXService {
     _instance = null;
   }
 
+  /// Queries a list of launches from the SpaceX GQL API
+  ///
+  /// [limit]: The number of records to retrieve.
   Future<DataResult<List<SpaceXLaunch>>> getLaunches( { int limit = 20 } ) async {
     final response = await _client.query(
       QueryOptions(
